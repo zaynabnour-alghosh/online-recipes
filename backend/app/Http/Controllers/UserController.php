@@ -49,11 +49,20 @@ class UserController extends Controller
         $mealplan->type=$request->type;
         $mealplan->save();
         $recipe=Recipe::find($request->recipe_id);
-        // $mealplan->meal=$mealplan->recipe;
         $mealplan->owner=$user->username; 
         return response()->json([
             'status'=>'success',
             'mealplan'=>$mealplan,
+            'recipe'=>$recipe
+        ]);
+    }
+    public function viewRecipe(Request $request){
+        $recipe=Recipe::find($request->id);
+        $ingredientNames=$recipe->ingredients()->pluck('name');
+        $recipe->ingredients=$ingredientNames;
+        $recipe->owner=$recipe->user()->pluck('username');
+        return response()->json([
+            'status'=>'success',
             'recipe'=>$recipe
         ]);
     }
