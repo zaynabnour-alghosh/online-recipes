@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Shoppinglist;
 use App\Models\Shoppinglist_detail;
+use App\Models\MealPLan;
+use App\Models\Recipe;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +39,23 @@ class UserController extends Controller
             'list_name'=>$list->name,
             'shoppinglist'=>$recipes
         ]);
-        
+    }
+    public function createMealPlan(Request $request){
+        $user = Auth::user();
+        $mealplan=new MealPlan;
+        $mealplan->user_id=$user->id;
+        $mealplan->recipe_id=$request->recipe_id;
+        $mealplan->date=$request->date;
+        $mealplan->type=$request->type;
+        $mealplan->save();
+        $recipe=Recipe::find($request->recipe_id);
+        // $mealplan->meal=$mealplan->recipe;
+        $mealplan->owner=$user->username; 
+        return response()->json([
+            'status'=>'success',
+            'mealplan'=>$mealplan,
+            'recipe'=>$recipe
+        ]);
     }
 
 }
