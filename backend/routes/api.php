@@ -11,6 +11,7 @@ Route::group(["middleware" => "auth:api"], function(){
         Route::post("post-recipe", [RecipeController::class, "postRecipe"]);
         Route::post("search-recipe", [RecipeController::class, "searchRecipe"]);
         Route::post("like-recipe", [RecipeController::class, "like"]);
+        Route::post("add-comment", [RecipeController::class, "comment"]);
         Route::post("logout", [AuthController::class, "logout"]);
         Route::post("refresh", [AuthController::class, "refresh"]);
 

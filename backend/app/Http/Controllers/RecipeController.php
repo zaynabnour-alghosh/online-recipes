@@ -6,6 +6,7 @@ use App\Models\Image;
 use App\Models\Ingredient;
 use App\Models\RecipeIngredient;
 use App\Models\Like;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class RecipeController extends Controller
@@ -111,6 +112,22 @@ class RecipeController extends Controller
             ]);
         }
     }
-
+    public function comment(Request $request){
+        $user = Auth::user();
+        $recipe_id = $request->id;
+        $comment_text=$request->comment;
+        $comment=new Comment;
+        $comment->user_id=$user->id;
+        $comment->recipe_id=$recipe_id;
+        $comment->comment_text=$comment_text;
+        $comment->save();
+        $comment->owner=$user->username;
+        return response()->json([
+            'status' => 'Success',
+            'comment'=>$comment
+            ]);
+    }
 }
+
+
 
