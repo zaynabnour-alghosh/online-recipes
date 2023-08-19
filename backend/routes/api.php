@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\UserController;
 
 Route::group(["middleware" => "auth:api"], function(){
     $user = Auth::user();     
@@ -12,6 +13,7 @@ Route::group(["middleware" => "auth:api"], function(){
         Route::post("search-recipe", [RecipeController::class, "searchRecipe"]);
         Route::post("like-recipe", [RecipeController::class, "like"]);
         Route::post("add-comment", [RecipeController::class, "comment"]);
+        Route::post("new-shoppinglist",[UserController::class,"createShoppingList"]);
         Route::post("logout", [AuthController::class, "logout"]);
         Route::post("refresh", [AuthController::class, "refresh"]);
 
