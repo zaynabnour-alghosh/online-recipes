@@ -5,6 +5,7 @@ use App\Models\Recipe;
 use App\Models\Image;
 use App\Models\Ingredient;
 use App\Models\RecipeIngredient;
+use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class RecipeController extends Controller
@@ -86,5 +87,30 @@ class RecipeController extends Controller
             ]);
         }
     }
+
+    public function like(Request $request){
+        $user = Auth::user();
+        $recipe_id = $request->id;
+        $recipe = Recipe::find($recipe_id);      
+        $already_liked = Like::where("user_id", $user->id)->where("recipe_id", $recipe_id)->first();     
+        if (!$already_liked) {
+            $like = new Like;
+            $like->user_id = $user->id;
+            $like->recipe_id = $recipe_id;
+            $like->save();            
+            $recipe->increment('nb_likes');
+            return response()->json([
+                'status' => 'Successful like',
+            ]);
+        } else {
+            $already_liked->delete();
+            $recipe->decrement('nb_likes');   
+
+            return response()->json([
+                'status' => 'Successful unlike',
+            ]);
+        }
+    }
+
 }
 
