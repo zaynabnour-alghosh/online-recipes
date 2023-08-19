@@ -10,7 +10,7 @@ class Shoppinglist extends Model
     use HasFactory;
     public function recipes()
     {
-        return $this->belongsToMany(Recipe::class,'shoppinglists_details','list_id' ,'recipe_id')>withPivot('recipe_id', 'list_id');
+        return $this->belongsToMany(Recipe::class,'shoppinglist_details','list_id' ,'recipe_id');
     }
     public function user()
     {

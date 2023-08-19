@@ -14,6 +14,8 @@ Route::group(["middleware" => "auth:api"], function(){
         Route::post("like-recipe", [RecipeController::class, "like"]);
         Route::post("add-comment", [RecipeController::class, "comment"]);
         Route::post("new-shoppinglist",[UserController::class,"createShoppingList"]);
+        Route::post("add-to-shoppinglist",[UserController::class,"addToShoppingList"]);
+        
         Route::post("logout", [AuthController::class, "logout"]);
         Route::post("refresh", [AuthController::class, "refresh"]);
 
