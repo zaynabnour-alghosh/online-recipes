@@ -59,5 +59,32 @@ class RecipeController extends Controller
         ]);
         
     }
+
+    public function searchRecipe(Request $request){
+        $filter=$request->search;
+        $all_recipes=Recipe::all();
+        $searchByCuisine=Recipe::all()->where('cuisine',$filter);
+        $searchByIngredient=Recipe::whereHas('ingredients',
+        function ($query) use ($filter) {
+        $query->where('name', $filter); 
+        })->get();
+        
+        if ($searchByCuisine->count() > 0) {
+            return response()->json([
+                'cuisine'=>$filter,
+                'filter'=>$searchByCuisine
+            ]);
+        } elseif($searchByIngredient->count()>0){
+            return response()->json([
+                'ingredient'=>$filter,
+                'recipes'=>$searchByIngredient
+            ]);
+        }
+        else{
+            return response()->json([
+                'all_recipes'=>$all_recipes
+            ]);
+        }
+    }
 }
 
