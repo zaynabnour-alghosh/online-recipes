@@ -72,21 +72,52 @@ class RecipeController extends Controller
         function ($query) use ($filter) {
         $query->where('name', $filter); 
         })->get();
-        
+        $recipe_arr=[];
         if ($searchByCuisine->count() > 0) {
+            foreach($searchByCuisine as $r){
+                $ingredientNames=$r->ingredients()->pluck('name');
+                $r->ingredients=$ingredientNames;
+                $r->owner=$r->user()->pluck('username');
+    
+                $images=$r->images()->pluck('image_url');
+                $r->images=$images;
+                $recipes_arr[]=$r;
+            }
             return response()->json([
-                'cuisine'=>$filter,
-                'filter'=>$searchByCuisine
+                'filter'=>$filter,
+                'recipes'=>$recipes_arr,
+                'type'=>'cuisine'
             ]);
         } elseif($searchByIngredient->count()>0){
+            foreach($searchByIngredient as $r){
+                $ingredientNames=$r->ingredients()->pluck('name');
+                $r->ingredients=$ingredientNames;
+                $r->owner=$r->user()->pluck('username');
+    
+                $images=$r->images()->pluck('image_url');
+                $r->images=$images;
+                $recipes_arr[]=$r;
+            }
             return response()->json([
-                'ingredient'=>$filter,
-                'recipes'=>$searchByIngredient
+                'filter'=>$filter,
+                'recipes'=>$recipes_arr,
+                'type'=>'ingredient'
             ]);
         }
         else{
+            foreach($all_recipes as $r){
+                $ingredientNames=$r->ingredients()->pluck('name');
+                $r->ingredients=$ingredientNames;
+                $r->owner=$r->user()->pluck('username');
+    
+                $images=$r->images()->pluck('image_url');
+                $r->images=$images;
+                $recipes_arr[]=$r;
+            }
             return response()->json([
-                'all_recipes'=>$all_recipes
+                'filter'=>'All Recipes',
+                'recipes'=>$recipes_arr,
+                'type'=>'all'
             ]);
         }
     }
