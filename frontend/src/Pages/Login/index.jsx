@@ -46,7 +46,7 @@ const Login=({onToggle,user,setUser})=>{
                     console.log(username);
                     setUser(username);
                 }, 1000);
-                setTimeout(() => {navigate("/home")},1000);
+                setTimeout(() => {navigate(`/home/${response.data.username}`)},1000);
             }
         }catch(error){
             console.log(error);

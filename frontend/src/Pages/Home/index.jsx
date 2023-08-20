@@ -1,7 +1,13 @@
 import SideBar from '../../Components/SideBar';
+import Recipe from '../../Components/Recipe';
 import './style.css';
+import { useParams } from "react-router-dom";
 
 const Home=()=>{
+  
+  const {username} = useParams();
+    const user=username;
+    console.log(user);
   return (
     <div className=" home page flex">
 			<SideBar
@@ -9,17 +15,26 @@ const Home=()=>{
 				selected={"Recipe"}
 			/>
 			<div className="container">
-				{/* <button onClick={toggleModal}>Create Meeting</button>
-				<CreateMeeting showModal={showModal} toggleModal={toggleModal} />
-				<div className="meetings-container">
-				     {meetings.map((meeting) => (
+        <div className="top flex row">
+            <div className="username primary-bg flex ">
+              username:<span className='user'>{user}</span></div>
+            <button  className='newRecipe'>New Recipe</button>
+
+        </div>
+        
+				
+				
+        {/* <Recipe showModal={showModal} toggleModal={toggleModal} /> */}
+				<div className="recipes-container flex row">
+				     {/* {meetings.map((meeting) => (
 					    <MeetingItem
 						   key={meeting.id}
 						   meeting={meeting}
 					    />
-				    ))}
-				</div> */}
-        <h1>Home page</h1>
+				    ))} */}
+            <Recipe />
+				</div>
+        
 			</div>
 		</div>
   );

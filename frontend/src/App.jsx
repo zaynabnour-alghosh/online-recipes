@@ -16,7 +16,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Authentication user={user} setUser={setUser} />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home/:username" element={<Home/>} />
       </Routes>
     </BrowserRouter>
   );
