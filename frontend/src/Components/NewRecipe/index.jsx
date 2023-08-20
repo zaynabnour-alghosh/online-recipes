@@ -50,8 +50,8 @@ const NewRecipe=({showModal , toggleModal})=>{
                 setIngredients([]);
                 setImage([]);
                 console.log(response);
+                navigate(`/home`)
                 toggleModal();
-                
             }
         }catch(error){
             console.log(error);

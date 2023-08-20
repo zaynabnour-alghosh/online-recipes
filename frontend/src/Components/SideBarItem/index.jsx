@@ -12,7 +12,21 @@ const SideBarItem = ({ label, selected, onSelected }) => {
 	const base_location = location.pathname.split("/")[1];
 	const clickHandler = () => {
 		onSelected(label);
-		navigation(`/${base_location}/${label?.toLowerCase()}`);
+		if (label==="Recipe"){
+			navigation(`/home`);
+		}
+		else if (label==="Search"){
+			navigation(`/search`);
+			
+		}
+		else if (label==="Shoppinglist"){
+			navigation(`/shoppinglist`);
+			
+		}
+		else if (label==="Mealplan"){
+			navigation(`/mealplan`);
+			
+		}
 	};
 
 	let icon;

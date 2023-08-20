@@ -4,6 +4,7 @@ import "./styles/utilities.css";
 import Authentication from "./Pages/Authentication";
 import { useState } from "react";
 import Home from "./Pages/Home";
+import Search from "./Pages/Search";
 function App() {
   const [user, setUser] = useState({
 		username: ""
@@ -16,7 +17,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Authentication user={user} setUser={setUser} />} />
-        <Route path="/home/:username" element={<Home/>} />
+        <Route path="/home" element={<Home/>} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );

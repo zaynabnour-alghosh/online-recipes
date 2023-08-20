@@ -7,6 +7,7 @@ import NewRecipe from '../../Components/NewRecipe';
 import { sendRequest } from '../../config/request';
 
 const Home=()=>{
+  const [owner,setOwner]=useState('')
   const [showModal, setShowModal] = useState(false);
   
   const [recipes, setRecipes]=useState([])
@@ -26,6 +27,7 @@ const Home=()=>{
 			if (response.status === 'Success') {
 				setRecipes(response.recipes);
 				console.log(response.recipes);
+				setOwner(response.recipes[0].owner[0])
 			}
 			} catch (error) {
 				console.log(error);
@@ -33,9 +35,9 @@ const Home=()=>{
 		}
 		getRecipes();
 	}, []);
-  const {username} = useParams();
-    const user=username;
-    console.log(user);
+  
+  
+  
   return (
     <div className=" home page flex">
 			<SideBar
@@ -43,16 +45,12 @@ const Home=()=>{
 				selected={"Recipe"}
 			/>
 			<div className="container">
-        <div className="top flex row">
-            <div className="username primary-bg flex ">
-              username:<span className='user'>{user}</span></div>
-            <button onClick={toggleModal} className='newRecipe'>New Recipe</button>
-            <NewRecipe showModal={showModal} toggleModal={toggleModal}/>
-        </div>
-        
-				
-				
-        {/* <Recipe showModal={showModal} toggleModal={toggleModal} /> */}
+				<div className="top flex row">
+					<div className="username primary-bg flex ">
+					username:<span className='user'>{owner}</span></div>
+					<button onClick={toggleModal} className='newRecipe'>New Recipe</button>
+					<NewRecipe showModal={showModal} toggleModal={toggleModal}/>
+				</div>
 				<div className="recipes-container flex row">
 				     {recipes.map((recipe) => (
 					    <Recipe
@@ -60,9 +58,7 @@ const Home=()=>{
 						   recipe={recipe}
 					    />
 				    ))}
-            
 				</div>
-        
 			</div>
 		</div>
   );
