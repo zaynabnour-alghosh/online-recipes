@@ -61,6 +61,11 @@ class UserController extends Controller
         $ingredientNames=$recipe->ingredients()->pluck('name');
         $recipe->ingredients=$ingredientNames;
         $recipe->owner=$recipe->user()->pluck('username');
+
+        $images=$recipe->images()->pluck('image_url');
+        $recipe->images=$images;
+       
+        
         return response()->json([
             'status'=>'success',
             'recipe'=>$recipe

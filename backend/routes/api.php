@@ -10,6 +10,8 @@ Route::group(["middleware" => "auth:api"], function(){
     $user = Auth::user();     
     Route::group(["prefix" => "user"], function(){
         Route::post("post-recipe", [RecipeController::class, "postRecipe"]);
+        Route::post("view-my-recipes", [RecipeController::class, "viewMyRecipes"]);
+
         Route::post("search-recipe", [RecipeController::class, "searchRecipe"]);
         Route::post("like-recipe", [RecipeController::class, "like"]);
         Route::post("add-comment", [RecipeController::class, "comment"]);

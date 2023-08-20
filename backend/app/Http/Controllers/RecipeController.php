@@ -54,6 +54,8 @@ class RecipeController extends Controller
         }
         $ingredientNames=$recipe->ingredients()->pluck('name');
         $recipe->ingredients=$ingredientNames;
+        $images=$recipe->images()->pluck('image_url');
+        $recipe->images=$images;
         return response()->json([
             'message' => 'Recipe added successfully',
             'recipe_owner'=>$user->username,
@@ -127,6 +129,30 @@ class RecipeController extends Controller
             'comment'=>$comment
             ]);
     }
+
+
+
+    public function viewMyRecipes(){
+        $user = Auth::user();
+        $recipes=$user->recipes;
+        $recipes_arr=[];
+        foreach($recipes as $r){
+            $ingredientNames=$r->ingredients()->pluck('name');
+            $r->ingredients=$ingredientNames;
+            $r->owner=$r->user()->pluck('username');
+
+            $images=$r->images()->pluck('image_url');
+            $r->images=$images;
+            $recipes_arr[]=$r;
+        }
+        
+       
+        return response()->json([
+            'status' => 'Success',
+            'recipes'=>$recipes_arr
+            ]);
+    }
+    
 }
 
 
