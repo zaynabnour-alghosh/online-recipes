@@ -7,8 +7,7 @@ export const sendRequest = async({
     route,
     body,
     includeHeaders = true,
-
-
+    
 })=>{
     if (!route) throw Error("URL required");
     axios.defaults.headers.authorization=includeHeaders
