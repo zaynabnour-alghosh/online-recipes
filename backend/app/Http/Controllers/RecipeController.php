@@ -147,7 +147,7 @@ class RecipeController extends Controller
     }
     public function comment(Request $request){
         $user = Auth::user();
-        $recipe_id = $request->id;
+        $recipe_id = $request->recipe_id;
         $comment_text=$request->comment;
         $comment=new Comment;
         $comment->user_id=$user->id;
