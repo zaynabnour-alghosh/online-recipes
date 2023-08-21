@@ -1,0 +1,126 @@
+.recipe-detail-card{
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    gap:50px;
+    justify-content: center;
+    margin-top: 10px;
+}
+.recipe-detail-card:hover{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 30px 18px -8px rgba(113, 112, 153, 0.1);
+    transform: scale(1.0005, 1.0005);
+    cursor: pointer;
+}
+.carousel-root {
+    outline: none;
+    height: 250px;
+    width: 250px;
+}
+img{
+    object-fit: cover;
+    height:100%;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.carousel .thumbs-wrapper {
+    margin: 20px;
+    overflow: hidden;
+    display: none;
+}
+.carousel .slider-wrapper {
+    transition: height .15s ease-in;
+    height: 250px;
+}
+.carousel.carousel-slider .control-arrow {
+    color: #fff;
+    bottom: 0;
+    width: 20px;
+}
+.recipe-details-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;;
+    gap:10px;
+    margin-top: 10px;
+    padding: 10px;
+}
+.recipe-detail-container{
+    width: 100%;
+    align-items: center;
+    gap: 30px;
+}
+.recipe-details-info span{
+    font-style: italic;
+    font-weight: 600;
+}
+.interaction-icons{
+    gap: 70px;
+    margin-top: 10px;
+    padding: 10px;
+    justify-content: space-evenly;
+}
+.like-icon{
+    color:red;
+}
+.comment-icon{
+    color: rgb(202, 196, 196);
+    border-width: 1px;
+}
+.icons{
+    gap:7px;
+    font-size: 16px;
+}
+.card-details{
+    border-radius: 10px;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;;
+    gap:10px;
+    margin-top: 10px;
+    padding: 10px;
+    opacity: 0;
+}
+.details-recipe{
+    gap:10px;
+    margin-top: 4px;
+    padding: 10px;   
+}
+.card-details.visible{
+    opacity: 1;
+}
+ul li{
+    margin-left: 20px;
+}
+.add-comment input{
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    outline-style: none;
+    outline-color:rgb(45, 51, 58);
+    border-color:rgb(194, 200, 208);
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    color:rgb(45, 51, 58);
+    outline-color:rgb(45, 51, 58);
+    outline-style: none;
+}
+.add-comment input:focus{
+    border-color:var(--color-primary);
+}
+.add-comment button{
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    margin-left: 8px;
+}

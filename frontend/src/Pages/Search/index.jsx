@@ -2,11 +2,13 @@ import SideBar from '../../Components/SideBar';
 import Recipe from '../../Components/Recipe';
 import './style.css';
 import {AiOutlineSearch,AiOutlineArrowRight} from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+
 
 import { useState,useEffect } from 'react';
-import { useParams } from "react-router-dom";
 import { sendRequest } from '../../config/request';
 const Search=()=>{
+    const navigate = useNavigate();
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [filter, setFilter]=useState('');
@@ -28,8 +30,7 @@ const Search=()=>{
 				setSearchResults(response.recipes);
                 setFilter(response.filter)
                 setType(response.type)
-			// 	console.log(response.recipes);
-			// 	setOwner(response.recipes[0].owner[0])
+
 			
 			} catch (error) {
 				console.log(error);
@@ -62,11 +63,15 @@ const Search=()=>{
                 <div className="search-results flex row">
                     {searchResults && <h2>Filter by<AiOutlineArrowRight sixe={20}  className='arrow'/> <span>{type}</span>:<span className="filter">{filter}</span></h2>}
                     <div className="search-container flex row">
+                        
                         {searchResults.map((recipe) => (
-                            <Recipe
-                            key={recipe.id}
-                            recipe={recipe}
-                            />
+                            console.log("id: ",recipe.id),
+                            <div className="detail" onClick={()=>navigate(`/recipe/${recipe.id}`)}>
+                                <Recipe
+                                    key={recipe.id}
+                                    recipe={recipe}
+                                />
+                        </div>
                         ))}
                     </div>
                 </div>

@@ -5,6 +5,7 @@ import Authentication from "./Pages/Authentication";
 import { useState } from "react";
 import Home from "./Pages/Home";
 import Search from "./Pages/Search";
+import RecipeDetails from "./Components/RecipeDetails";
 function App() {
   const [user, setUser] = useState({
 		username: ""
@@ -19,6 +20,8 @@ function App() {
         <Route path="/" element={<Authentication user={user} setUser={setUser} />} />
         <Route path="/home" element={<Home/>} />
         <Route path="/search" element={<Search />} />
+        <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
+        
       </Routes>
     </BrowserRouter>
   );

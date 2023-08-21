@@ -3,8 +3,11 @@ import { FaHeart, FaComment } from 'react-icons/fa';
 import { useState } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+
 const Recipe=({recipe})=>{
+
     const { id, name,cuisine,owner,ingredients,images,nb_likes} = recipe;
+    console.log("search:",recipe.id)
     const [isHovered, setIsHovered] = useState(false);
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -12,12 +15,14 @@ const Recipe=({recipe})=>{
     const handleMouseLeave = () => {
         setIsHovered(false);
     };
+   
   return (
     <div className=" recipe flex">
 			<div className="recipe-container">
 				<div className="recipe-card flex column"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    
                 >
                 <Carousel>
                     {recipe.images.map((image, index) => (
