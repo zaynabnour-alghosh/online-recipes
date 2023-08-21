@@ -124,3 +124,12 @@ ul li{
     padding: 0.5rem 1rem;
     margin-left: 8px;
 }
+.cmnts{
+    gap:15px;
+    margin-top: 10px;
+    overflow-y: scroll;
+}
+.comments-info{
+    margin-top: 20px;
+    margin-left: 40px;
+}

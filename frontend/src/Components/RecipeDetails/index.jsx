@@ -127,13 +127,16 @@ const RecipeDetails=()=>{
                         </div>
                     </div>
                     <div className="comments-info flex column">
-                        Comments:
-                    {detail?.comment?.map((c, index) => (
+                        <h2>Comments:</h2>
+                        <div className="cmnts flex column">
+                            {detail?.comment?.map((c, index) => (
+                                        
                                     
-                                   
-                        <div key={index} className="comment">
-                            username<span>{c.user.username} {c.comment_text}</span>
-                        </div> ))}
+                                        <div key={index} className="comment">
+                                            username<span>{c.user.username} {c.comment_text}</span>
+                                        </div> ))}
+                        </div>
+                    
                     </div>
             </div>
             <div className='add-comment'>
