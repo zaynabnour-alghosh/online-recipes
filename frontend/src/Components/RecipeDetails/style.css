@@ -127,6 +127,7 @@ ul li{
 .cmnts{
     gap:15px;
     margin-top: 10px;
+    max-height: 150px;
     overflow-y: scroll;
 }
 .comments-info{

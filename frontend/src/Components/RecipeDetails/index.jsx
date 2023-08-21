@@ -1,5 +1,5 @@
 import './style.css';
-import { FaHeart, FaComment } from 'react-icons/fa';
+import { FaHeart,FaRegHeart, FaComment } from 'react-icons/fa';
 import { useState,useEffect } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const RecipeDetails=()=>{
     const navigate = useNavigate();
-
+    const [isLiked, setIsLiked] = useState(false);
     const [commentText, setCommentText] = useState('');
     const [comments, setComments] = useState([]);
     const [isLikedClicked, setIsLikedClicked] = useState(false);
@@ -18,8 +18,17 @@ const RecipeDetails=()=>{
 
     const {recipeId}=useParams();
     // const recipe_id=id;
-    const [detail,setDetail]=useState({})
+    const [detail,setDetail]=useState({
+        id: null, 
+        name: '', 
+        cuisine: '', 
+        nb_likes: 0, 
+        ingredients: [], 
+        owner: '', 
+        comment: [],
+        images: []});
     const{id,name,cuisine,nb_likes,ingredients,owner,comment,images}=detail;
+    const [likes, setLikes] = useState(detail.nb_likes);
     
     // "comment": [
     //     {
@@ -60,9 +69,25 @@ const RecipeDetails=()=>{
         }
 
     }
-    const like=()=>{
-        console.log("you liked this recipe")
-    }
+    const like = async () => {
+        const data = new FormData();
+        data.append('recipe_id', recipeId);
+        try {
+            const response=await sendRequest({
+                method:"POST",
+                route:"/user/like-recipe",
+                body:data,
+                includeHeaders:true
+            })
+            console.log(response)
+            if (response.status === 'Successful like' || response.status === 'Successful ulike') {
+                setIsLiked(!isLiked); 
+                setLikes(response.likes); 
+              }
+        } catch (error) {
+            console.error(error);
+        }
+    };
     useEffect(() => {
         viewRecipeDetails();
     },[]);
@@ -119,21 +144,28 @@ const RecipeDetails=()=>{
                         </div>
                         <div className="interaction-icons flex row">
                             <div className="icons flex">
-                                <FaHeart className="icon like-icon"  onClick={() => like()}/> {detail.nb_likes}
+                                {/* <FaHeart className="icon like-icon"  onClick={() => like()}/> {detail.nb_likes} */}
+                                {isLiked ? (
+                                <FaHeart className="icon like-icon liked" onClick={() => like()} />
+                                    ) : (
+                                <FaRegHeart className="icon like-icon" onClick={() => like()} />
+                                    )}
+                            {likes}
                             </div>
                             <div className="icons flex">
-                                <FaComment className="icon comment-icon" />3
+                                <FaComment className="icon comment-icon" />{detail.comment.length}
                             </div>
                         </div>
                     </div>
                     <div className="comments-info flex column">
                         <h2>Comments:</h2>
                         <div className="cmnts flex column">
+                            
                             {detail?.comment?.map((c, index) => (
                                         
                                     
                                         <div key={index} className="comment">
-                                            username<span>{c.user.username} {c.comment_text}</span>
+                                            <span>{c.user.username} <strong>{c.comment_text}</strong></span>
                                         </div> ))}
                         </div>
                     
